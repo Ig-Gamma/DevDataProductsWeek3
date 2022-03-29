@@ -1,0 +1,35 @@
+---
+title: "Presentation with a Plotly Graph"
+author: "Igor Gamayun"
+date: "3/29/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 3d Scatter plot for mtcars
+```{r plotly, echo = FALSE, warning= FALSE,message=FALSE}
+library(plotly)
+t <- list(
+  size = 10,
+  color = toRGB("grey50"))
+
+ff<-plot_ly(data=mtcars, x=~hp, y=~mpg, z=~wt, type="scatter3d", mode="markers", 
+            text= ~rownames(mtcars),  marker=list(size=~cyl,color=~qsec, colorbar=list(title='qsec'), line=list(color=~qsec,colorscale='Viridis',reversescale=T), colorscale='Viridis', reversescale=T),
+            hovertemplate= paste('%{text}<br>','hp:%{x}<br>','mpg:%{y}<br>','wt:%{z}<br>','cyl:%{marker.size}<extra></extra>')
+            )
+            
+ff <- ff %>% add_text(textfont=t) %>%
+  layout(hovermode = "x", showlegend=F)
+
+
+ff
+
+```
+
+## THANKS
+
+
+
